@@ -1,0 +1,11 @@
+{
+  "name": "js-conversor-unidades",
+  "version": "1.0.0",
+  "description": "Conversor de unidades no terminal",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
