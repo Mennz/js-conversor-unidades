@@ -1,5 +1,6 @@
 const readline = require("readline");
 const { converterTemperatura } = require("./temperatura");
+const { converterDistancia } = require("./distancia");
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -42,6 +43,29 @@ async function menuTemperatura() {
   console.log(`${valor}${de} = ${resultado.toFixed(2)}${para}`);
 }
 
+async function menuDistancia() {
+  console.log("\n-- Distancia --");
+  console.log("Unidades: MM, CM, M, KM, MI (milha)");
+
+  const valorTexto = await pergunta("Valor: ");
+  const de = (await pergunta("De qual unidade: ")).trim().toUpperCase();
+  const para = (await pergunta("Para qual unidade: ")).trim().toUpperCase();
+
+  const valor = Number(valorTexto);
+  if (Number.isNaN(valor)) {
+    console.log("Valor invalido");
+    return;
+  }
+
+  const resultado = converterDistancia(valor, de, para);
+  if (resultado === null) {
+    console.log("Unidade invalida");
+    return;
+  }
+
+  console.log(`${valor}${de} = ${resultado.toFixed(4)}${para}`);
+}
+
 async function main() {
   let sair = false;
 
@@ -54,7 +78,7 @@ async function main() {
         await menuTemperatura();
         break;
       case "2":
-        console.log("Distancia ainda nao implementada");
+        await menuDistancia();
         break;
       case "3":
         console.log("Peso ainda nao implementado");
