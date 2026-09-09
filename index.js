@@ -2,6 +2,7 @@ const readline = require("readline");
 const { converterTemperatura } = require("./temperatura");
 const { converterDistancia } = require("./distancia");
 const { converterPeso } = require("./peso");
+const { converterMoeda } = require("./moeda");
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -90,6 +91,29 @@ async function menuPeso() {
   console.log(`${valor}${de} = ${resultado.toFixed(4)}${para}`);
 }
 
+async function menuMoeda() {
+  console.log("\n-- Moeda --");
+  console.log("Unidades: USD, BRL, EUR, GBP (taxas fixas, nao e cotacao real)");
+
+  const valorTexto = await pergunta("Valor: ");
+  const de = (await pergunta("De qual moeda: ")).trim().toUpperCase();
+  const para = (await pergunta("Para qual moeda: ")).trim().toUpperCase();
+
+  const valor = Number(valorTexto);
+  if (Number.isNaN(valor)) {
+    console.log("Valor invalido");
+    return;
+  }
+
+  const resultado = converterMoeda(valor, de, para);
+  if (resultado === null) {
+    console.log("Moeda invalida");
+    return;
+  }
+
+  console.log(`${valor} ${de} = ${resultado.toFixed(2)} ${para}`);
+}
+
 async function main() {
   let sair = false;
 
@@ -108,7 +132,7 @@ async function main() {
         await menuPeso();
         break;
       case "4":
-        console.log("Moeda ainda nao implementada");
+        await menuMoeda();
         break;
       case "0":
         sair = true;
