@@ -1,4 +1,5 @@
 const readline = require("readline");
+const { converterTemperatura } = require("./temperatura");
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -18,6 +19,29 @@ function mostrarMenu() {
   console.log("0 - Sair");
 }
 
+async function menuTemperatura() {
+  console.log("\n-- Temperatura --");
+  console.log("Unidades: C (celsius), F (fahrenheit), K (kelvin)");
+
+  const valorTexto = await pergunta("Valor: ");
+  const de = (await pergunta("De qual unidade: ")).trim().toUpperCase();
+  const para = (await pergunta("Para qual unidade: ")).trim().toUpperCase();
+
+  const valor = Number(valorTexto);
+  if (Number.isNaN(valor)) {
+    console.log("Valor invalido");
+    return;
+  }
+
+  const resultado = converterTemperatura(valor, de, para);
+  if (resultado === null) {
+    console.log("Unidade invalida");
+    return;
+  }
+
+  console.log(`${valor}${de} = ${resultado.toFixed(2)}${para}`);
+}
+
 async function main() {
   let sair = false;
 
@@ -27,7 +51,7 @@ async function main() {
 
     switch (opcao.trim()) {
       case "1":
-        console.log("Temperatura ainda nao implementada");
+        await menuTemperatura();
         break;
       case "2":
         console.log("Distancia ainda nao implementada");
