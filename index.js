@@ -31,7 +31,7 @@ async function menuTemperatura() {
   const para = (await pergunta("Para qual unidade: ")).trim().toUpperCase();
 
   const valor = Number(valorTexto);
-  if (Number.isNaN(valor)) {
+  if (valorTexto.trim() === "" || Number.isNaN(valor)) {
     console.log("Valor invalido");
     return;
   }
@@ -54,7 +54,7 @@ async function menuDistancia() {
   const para = (await pergunta("Para qual unidade: ")).trim().toUpperCase();
 
   const valor = Number(valorTexto);
-  if (Number.isNaN(valor)) {
+  if (valorTexto.trim() === "" || Number.isNaN(valor)) {
     console.log("Valor invalido");
     return;
   }
@@ -77,7 +77,7 @@ async function menuPeso() {
   const para = (await pergunta("Para qual unidade: ")).trim().toUpperCase();
 
   const valor = Number(valorTexto);
-  if (Number.isNaN(valor)) {
+  if (valorTexto.trim() === "" || Number.isNaN(valor)) {
     console.log("Valor invalido");
     return;
   }
@@ -100,7 +100,7 @@ async function menuMoeda() {
   const para = (await pergunta("Para qual moeda: ")).trim().toUpperCase();
 
   const valor = Number(valorTexto);
-  if (Number.isNaN(valor)) {
+  if (valorTexto.trim() === "" || Number.isNaN(valor)) {
     console.log("Valor invalido");
     return;
   }
